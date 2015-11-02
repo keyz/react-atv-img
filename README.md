@@ -45,6 +45,8 @@ static propTypes = {
 ### Example
 
 ``` javascript
+import AtvImg from 'react-atv-img';
+
 <AtvImg
   layers={[
     'http://kloc.pm/images/back.png',
