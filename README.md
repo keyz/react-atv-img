@@ -7,6 +7,8 @@ A port of [@drewwilson](https://github.com/drewwilson)’s amazing [atvImg](http
 ## Demo
 [http://keyanzhang.github.io/react-atv-img](http://keyanzhang.github.io/react-atv-img)
 
+![GIF](http://i.imgur.com/XxLKcTW.gif)
+
 Or run it locally:
 
 ```
@@ -16,7 +18,7 @@ npm install
 npm run example
 ```
 
-Navigate to http://localhost:3000/
+Then navigate to [http://localhost:3000/](http://localhost:3000/)
 
 ## API
 ### Props
