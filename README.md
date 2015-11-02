@@ -4,6 +4,20 @@ A port of [@drewwilson](https://github.com/drewwilson)’s amazing [atvImg](http
 ## Install
 `npm install --save react-atv-img`
 
+## Demo
+[http://keyanzhang.github.io/react-atv-img](http://keyanzhang.github.io/react-atv-img)
+
+Or run it locally:
+
+```
+git clone https://github.com/keyanzhang/react-atv-img/
+cd react-atv-img
+npm install
+npm run example
+```
+
+Navigate to http://localhost:3000/
+
 ## API
 ### Props
 
@@ -19,7 +33,7 @@ static propTypes = {
 
 #### Data
 - `layers`: Required. An array of image URLs. The images will be stacked on top of each other and the _last_ element will be at the top.
-- `isStatic`: Optional. A boolean value. It disables the parallax effect when it evaluates to `true`, and shows the flattened image (`staticFallback`) instead.
+- `isStatic`: Optional. A boolean value. When it evaluates to `true`, it disables the parallax effect, and shows the flattened image (`staticFallback`) instead.
 - `staticFallback`: Optional. A flattened image that contains all the layers.
 
 #### Styling: use the following options to set up the width/height of the entire component
@@ -40,3 +54,6 @@ static propTypes = {
   style={{ width: 320, height: 190 }}
 />
 ```
+
+## License
+MIT
