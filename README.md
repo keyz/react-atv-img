@@ -1,5 +1,5 @@
 # react-atv-img
-A port of [@drewwilson](https://github.com/drewwilson)’s amazing [atvImg](https://github.com/drewwilson/atvImg) (Apple TV 3D parallax effect) library in React.
+A port of [@drewwilson](https://github.com/drewwilson)’s amazing [atvImg](https://github.com/drewwilson/atvImg) (Apple TV 3D parallax effect) library in React. It supports both touch and mouse events.
 
 ## Install
 `npm install --save react-atv-img`
@@ -26,7 +26,7 @@ Then navigate to [http://localhost:3000/](http://localhost:3000/)
 ``` javascript
 static propTypes = {
   layers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  isStatic: PropTypes.bool,  
+  isStatic: PropTypes.bool,
   staticFallback: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
