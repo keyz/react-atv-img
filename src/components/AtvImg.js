@@ -35,7 +35,8 @@ export default class AtvImg extends Component {
 
     const { rootElemWidth, rootElemHeight } = this.state;
 
-    const { scrollTop: bodyScrollTop, scrollLeft: bodyScrollLeft } = document.body;
+    const bodyScrollTop = document.body.scrollTop || document.getElementsByTagName('html')[0].scrollTop;
+    const bodyScrollLeft = document.body.scrollLeft;
     const offsets = this.refs.root.getBoundingClientRect();
     const wMultiple = 320 / rootElemWidth;
     const offsetX = 0.52 - (pageX - offsets.left - bodyScrollLeft) / rootElemWidth; // cursor position X
