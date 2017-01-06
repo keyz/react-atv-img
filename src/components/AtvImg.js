@@ -136,7 +136,7 @@ export default class AtvImg extends Component {
         onTouchStart={this.handleEnter}
         onTouchEnd={this.handleLeave}
         className={this.props.className || ''}
-        ref="root"
+        ref={`root`}
       >
         <div style={{ ...styles.container, ...this.state.container }}>
           {this.renderShadow()}
