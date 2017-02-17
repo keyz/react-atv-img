@@ -124,7 +124,7 @@ export default class AtvImg extends Component {
             );
           }
 
-          const childrenWithProps = React.Children.map(layer,
+          return React.Children.map(layer,
             child => React.cloneElement(child, {
               style: {
                 ...child.props.style,
@@ -134,7 +134,6 @@ export default class AtvImg extends Component {
               },
               className: `${child.props.className} ${this.props.className || ''}`,
             }));
-          return childrenWithProps;
         })}
       </div>
     );
