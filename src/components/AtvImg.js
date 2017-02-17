@@ -31,21 +31,6 @@ export default class AtvImg extends Component {
     }
   }
 
-  allLayers = () => {
-    let layers = [];
-
-    if (this.props.layers) {
-      layers = layers.concat(this.props.layers);
-    }
-
-    if (typeof this.props.children === 'object') {
-      layers = this.props.children.constructor === Array ?
-        layers.concat(this.props.children) : layers.concat([this.props.children]);
-    }
-
-    return layers;
-  }
-
   handleMove = ({ pageX, pageY }) => {
     const allLayers = this.allLayers();
     const layerCount = allLayers ? this.allLayers.length : 0; // the number of layers
@@ -99,6 +84,17 @@ export default class AtvImg extends Component {
       shine: {},
       layers: [],
     });
+  }
+
+  allLayers = () => {
+    let layers = this.props.layers || [];
+
+    if (typeof this.props.children === 'object') {
+      layers = this.props.children.constructor === Array ?
+        layers.concat(this.props.children) : layers.concat([this.props.children]);
+    }
+
+    return layers;
   }
 
   renderShadow = () => (
