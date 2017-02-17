@@ -4,11 +4,12 @@ import styles from '../styles';
 
 export default class AtvImg extends Component {
   static propTypes = {
-    layers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    layers: PropTypes.arrayOf(PropTypes.string),
     isStatic: PropTypes.bool,
     staticFallback: PropTypes.string,
     className: PropTypes.string,
     style: PropTypes.object,
+    children: PropTypes.node,
   };
 
   state = {
@@ -31,7 +32,8 @@ export default class AtvImg extends Component {
   }
 
   handleMove = ({ pageX, pageY }) => {
-    const layerCount = this.props.layers.length; // the number of layers
+    const allLayers = this.allLayers();
+    const layerCount = allLayers ? this.allLayers.length : 0; // the number of layers
 
     const { rootElemWidth, rootElemHeight } = this.state;
 
@@ -59,7 +61,7 @@ export default class AtvImg extends Component {
         background: `linear-gradient(${angle}deg, rgba(255, 255, 255, ${(pageY - offsets.top - bodyScrollTop) / rootElemHeight * 0.4}) 0%, rgba(255, 255, 255, 0) 80%)`,
         transform: `translateX(${(offsetX * layerCount) - 0.1}px) translateY(${(offsetY * layerCount) - 0.1}px)`,
       },
-      layers: this.props.layers.map((_, idx) => ({
+      layers: allLayers.map((_, idx) => ({
         transform: `translateX(${(offsetX * (layerCount - idx)) * ((idx * 2.5) / wMultiple)}px) translateY(${offsetY * layerCount * ((idx * 2.5) / wMultiple)}px)`,
       })),
     });
@@ -84,24 +86,54 @@ export default class AtvImg extends Component {
     });
   }
 
+  allLayers = () => {
+    let layers = this.props.layers || [];
+
+    if (typeof this.props.children === 'object') {
+      layers = this.props.children.constructor === Array ?
+        layers.concat(this.props.children) : layers.concat([this.props.children]);
+    }
+
+    return layers;
+  }
+
   renderShadow = () => (
     <div style={{ ...styles.shadow, ...(this.state.isOnHover ? styles.shadowOnHover : {}) }}/>
   );
 
-  renderLayers = () => (
-    <div style={styles.layers}>
-      {this.props.layers && this.props.layers.map((imgSrc, idx) => (
-        <div
-          style={{
-            backgroundImage: `url(${imgSrc})`,
-            ...styles.renderedLayer,
-            ...(this.state.layers[idx] ? this.state.layers[idx] : {}),
-          }}
-          key={idx}
-        />
-      ))}
-    </div>
-  );
+  renderLayers = () => {
+    const allLayers = this.allLayers();
+
+    return (
+      <div style={styles.layers}>
+        {allLayers && allLayers.map((layer, idx) => {
+          if (typeof layer === 'string') {
+            return (
+              <div
+                style={{
+                  backgroundImage: `url(${layer})`,
+                  ...styles.renderedLayer,
+                  ...(this.state.layers[idx] ? this.state.layers[idx] : {}),
+                }}
+                key={idx}
+              />
+            );
+          }
+
+          return React.Children.map(layer,
+            child => React.cloneElement(child, {
+              style: {
+                ...child.props.style,
+                ...styles.root,
+                ...(this.props.style ? this.props.style : {}),
+                ...this.state.layers[idx],
+              },
+              className: `${child.props.className} ${this.props.className || ''}`,
+            }));
+        })}
+      </div>
+    );
+  }
 
   renderShine = () => (
     <div style={{ ...styles.shine, ...this.state.shine }}/>
@@ -118,6 +150,7 @@ export default class AtvImg extends Component {
           className={this.props.className || ''}
         >
           <img style={styles.staticFallback} src={this.props.staticFallback} />
+          {this.props.children}
         </div>
       );
     }
