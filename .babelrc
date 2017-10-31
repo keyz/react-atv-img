@@ -1,21 +1,29 @@
 {
-  "stage": 0,
-  "loose": "all",
-  "env": {
-    "development": {
-      "plugins": ["react-transform"],
-      "extra": {
-        "react-transform": {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            "imports": ["react"],
-            "locals": ["module"]
-          }, {
-            "transform": "react-transform-catch-errors",
-            "imports": ["react", "redbox-react"]
-          }]
-        }
+  "presets": [
+    ["react"],
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        },
+        "useBuiltIns": true
       }
-    }
-  }
+    ]
+  ],
+  "plugins": [["react-transform", {
+    "transforms": [{
+      "transform": "react-transform-hmr",
+      // if you use React Native, pass "react-native" instead:
+      "imports": ["react"],
+      // this is important for Webpack HMR:
+      "locals": ["module"]
+    }]
+    // note: you can put more transforms into array
+    // this is just one of them!
+  }],
+    "transform-export-extensions",
+    "transform-class-properties",
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ]
 }

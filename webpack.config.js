@@ -49,23 +49,20 @@ module.exports = Object.assign({}, {
   plugins: [
     constPlugin,
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
   ],
   resolve: {
     alias: {
       'react-atv-img': path.join(__dirname, 'src')
     },
-    extensions: ['', '.js']
+    extensions: ['*', '.js']
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      exclude: /node_modules/,
-      includes: [
-        './example/src',
-        './src'
-      ]
-    }]
+    rules: [
+      {
+        test: /\.js$/,
+        loaders: ["babel-loader"],
+        exclude: ["./node_modules"]
+      },
+    ]
   }
 }, config);
