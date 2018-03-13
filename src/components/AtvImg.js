@@ -1,8 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from '../styles';
 
-export default class AtvImg extends Component {
+let root;
+
+export default class AtvImg extends React.Component {
   static propTypes = {
     layers: PropTypes.arrayOf(PropTypes.string).isRequired,
     isStatic: PropTypes.bool,
@@ -24,8 +27,8 @@ export default class AtvImg extends Component {
     if (!this.props.isStatic) {
       this.setState({ // eslint-disable-line react/no-did-mount-set-state
         // this is a legit use case. we must trigger a re-render. don't worry.
-        rootElemWidth: this.refs.root.clientWidth || this.refs.root.offsetWidth || this.refs.root.scrollWidth,
-        rootElemHeight: this.refs.root.clientHeight || this.refs.root.offsetHeight || this.refs.root.scrollHeight,
+        rootElemWidth: root.clientWidth || root.offsetWidth || root.scrollWidth,
+        rootElemHeight: root.clientHeight || root.offsetHeight || root.scrollHeight,
       });
     }
   }
@@ -37,7 +40,7 @@ export default class AtvImg extends Component {
 
     const bodyScrollTop = document.body.scrollTop || document.getElementsByTagName('html')[0].scrollTop;
     const bodyScrollLeft = document.body.scrollLeft;
-    const offsets = this.refs.root.getBoundingClientRect();
+    const offsets = root.getBoundingClientRect();
     const wMultiple = 320 / rootElemWidth;
     const offsetX = 0.52 - (pageX - offsets.left - bodyScrollLeft) / rootElemWidth; // cursor position X
     const offsetY = 0.52 - (pageY - offsets.top - bodyScrollTop) / rootElemHeight; // cursor position Y
@@ -136,7 +139,7 @@ export default class AtvImg extends Component {
         onTouchStart={this.handleEnter}
         onTouchEnd={this.handleLeave}
         className={this.props.className || ''}
-        ref="root"
+        ref={inst => {root = inst;}}
       >
         <div style={{ ...styles.container, ...this.state.container }}>
           {this.renderShadow()}

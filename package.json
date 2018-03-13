@@ -32,7 +32,8 @@
   },
   "homepage": "https://github.com/keyanzhang/react-atv-img#readme",
   "peerDependencies": {
-    "react": ">=0.14"
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0"
   },
   "devDependencies": {
     "babel": "~5.8.29",
@@ -46,8 +47,9 @@
     "expect": "^1.12.2",
     "express": "~4.13.3",
     "mocha": "^2.3.3",
-    "react": "^0.14.1",
-    "react-dom": "^0.14.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-transform-catch-errors": "~1.0.0",
     "react-transform-hmr": "~1.0.0",
     "redbox-react": "~1.1.1",
